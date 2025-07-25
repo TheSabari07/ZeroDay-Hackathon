@@ -23,18 +23,22 @@ const DashboardPage = () => {
             Manage Announcements
           </Link>
         )}
-        <Link
-          to="/complaints/register"
-          className="bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white py-2 px-6 rounded-md font-semibold shadow hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 transition duration-200 text-center"
-        >
-          Raise a Complaint
-        </Link>
-        <Link
-          to="/complaints/my"
-          className="bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 text-white py-2 px-6 rounded-md font-semibold shadow hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition duration-200 text-center"
-        >
-          My Complaints
-        </Link>
+        {user?.role === 'student' && (
+          <>
+            <Link
+              to="/complaints/register"
+              className="bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white py-2 px-6 rounded-md font-semibold shadow hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 transition duration-200 text-center"
+            >
+              Raise a Complaint
+            </Link>
+            <Link
+              to="/complaints/my"
+              className="bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 text-white py-2 px-6 rounded-md font-semibold shadow hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition duration-200 text-center"
+            >
+              My Complaints
+            </Link>
+          </>
+        )}
         {user?.role === 'admin' && (
           <Link
             to="/admin/complaints"
