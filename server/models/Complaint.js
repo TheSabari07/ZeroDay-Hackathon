@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const ComplaintSchema = new mongoose.Schema({
   user: {
@@ -31,4 +31,4 @@ const ComplaintSchema = new mongoose.Schema({
   },
 }, { timestamps: true });
 
-module.exports = mongoose.model('Complaint', ComplaintSchema); 
+export default mongoose.model('Complaint', ComplaintSchema); 
