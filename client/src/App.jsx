@@ -16,6 +16,8 @@ import ComplaintManagementPage from './pages/Admin/ComplaintManagementPage';
 import ReportItemPage from './pages/LostFound/ReportItemPage';
 import BrowseItemsPage from './pages/LostFound/BrowseItemsPage';
 import ItemDetailsPage from './pages/LostFound/ItemDetailsPage';
+import ScheduleFormPage from './pages/Timetable/ScheduleFormPage';
+import TimetablePage from './pages/Timetable/TimetablePage';
 
 const PrivateRoute = ({ children, allowedRoles }) => {
   const { user, loading } = useAuth();
@@ -120,6 +122,32 @@ function AppRoutes() {
           element={
             <PrivateRoute allowedRoles={["admin"]}>
               <ComplaintManagementPage />
+            </PrivateRoute>
+          }
+        />
+
+        {/* Timetable Routes */}
+        <Route
+          path="/timetable"
+          element={
+            <PrivateRoute allowedRoles={["student", "admin"]}>
+              <TimetablePage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/timetable/add"
+          element={
+            <PrivateRoute allowedRoles={["student", "admin"]}>
+              <ScheduleFormPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/timetable/edit/:id"
+          element={
+            <PrivateRoute allowedRoles={["student", "admin"]}>
+              <ScheduleFormPage />
             </PrivateRoute>
           }
         />
