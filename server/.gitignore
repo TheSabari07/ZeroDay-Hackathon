@@ -1,0 +1,8 @@
+# Ignore environment files
+.env
+
+# Ignore node_modules
+node_modules/
+
+# Other common ignores
+.DS_Store
