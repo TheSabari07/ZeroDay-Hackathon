@@ -109,9 +109,9 @@ const BrowseItemsPage = () => {
             className="bg-white shadow rounded p-4 flex flex-col h-full"
           >
             <div className="h-40 w-full mb-3 flex items-center justify-center bg-gray-100 rounded overflow-hidden">
-              {item.imageUrl ? (
+              {item.image ? (
                 <img
-                  src={`${import.meta.env.VITE_BACKEND_API_URL}/uploads/${item.imageUrl}`}
+                  src={`${import.meta.env.VITE_BACKEND_API_URL}/${item.image.replace(/^server\//, '')}`}
                   alt={item.title}
                   className="object-cover h-full w-full"
                 />

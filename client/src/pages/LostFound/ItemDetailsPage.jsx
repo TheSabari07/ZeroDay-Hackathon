@@ -96,9 +96,9 @@ const ItemDetailsPage = () => {
           <h2 className="text-2xl font-bold mb-4 text-center">Item Details</h2>
           <div className="flex flex-col md:flex-row gap-6 mb-6">
             <div className="flex-shrink-0 w-full md:w-64 h-64 bg-gray-100 rounded overflow-hidden flex items-center justify-center">
-              {item.imageUrl ? (
+              {item.image ? (
                 <img
-                  src={`${import.meta.env.VITE_BACKEND_API_URL}/uploads/${item.imageUrl}`}
+                  src={`${import.meta.env.VITE_BACKEND_API_URL}/${item.image.replace(/^server\//, '')}`}
                   alt={item.title}
                   className="object-cover w-full h-full"
                 />
