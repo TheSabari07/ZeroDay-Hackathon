@@ -21,26 +21,26 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 bg-white rounded shadow-md">
-        <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
-        {error && <div className="mb-4 text-red-500 text-center">{error}</div>}
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="glass-card w-full sm:max-w-md mx-auto p-8 my-8 animate-fade-in">
+        <h2 className="text-4xl font-extrabold text-center mb-6 bg-gradient-to-r from-indigo-600 via-blue-500 to-purple-500 bg-clip-text text-transparent animate-slide-in">Login</h2>
+        {error && <div className="mb-4 text-red-500 text-center text-sm mt-1">{error}</div>}
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block mb-1 font-medium">Email</label>
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
             <input
               type="email"
-              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-white/70 backdrop-blur-sm"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
-          <div>
-            <label className="block mb-1 font-medium">Password</label>
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
             <input
               type="password"
-              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-white/70 backdrop-blur-sm"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -48,14 +48,14 @@ const LoginPage = () => {
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition-colors"
+            className="w-full bg-gradient-to-r from-indigo-500 via-blue-500 to-purple-500 text-white py-2 px-4 rounded-md font-semibold hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition duration-200 ease-in-out"
           >
             Login
           </button>
         </form>
-        <p className="mt-4 text-center text-gray-600">
+        <p className="text-center mt-4 text-sm">
           Don't have an account?{' '}
-          <Link to="/register" className="text-blue-600 hover:underline">Register</Link>
+          <Link to="/register" className="text-primary hover:underline">Register</Link>
         </p>
       </div>
     </div>

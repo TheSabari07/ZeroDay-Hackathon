@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  @apply font-sans bg-gradient-to-br from-indigo-500 via-blue-400 to-purple-400 min-h-screen text-textDark;
+  background-attachment: fixed;
+}
+
+@layer utilities {
+  .glass-card {
+    @apply bg-white/40 backdrop-blur-md shadow-xl rounded-2xl border border-white/30;
+  }
+}

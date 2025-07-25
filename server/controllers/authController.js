@@ -9,32 +9,41 @@ export const generateToken = (id, role) => {
 
 // Register a new user
 export const registerUser = asyncHandler(async (req, res) => {
+    console.log('Register request body:', req.body);
     const { email, password, role } = req.body;
 
     // Check if user already exists
     const userExists = await User.findOne({ email });
+    console.log('User exists:', userExists);
     if (userExists) {
         res.status(400);
         throw new Error('User already exists');
     }
 
-    // Create user (password will be hashed by pre-save hook)
-    const user = await User.create({
-        email,
-        password,
-        role,
-    });
-
-    if (user) {
-        res.status(201).json({
-            id: user.id,
-            email: user.email,
-            role: user.role,
-            token: generateToken(user.id, user.role),
+    try {
+        // Create user (password will be hashed by pre-save hook)
+        const user = await User.create({
+            email,
+            password,
+            role,
         });
-    } else {
-        res.status(400);
-        throw new Error('Invalid user data');
+        console.log('User created:', user);
+
+        if (user) {
+            res.status(201).json({
+                id: user.id,
+                email: user.email,
+                role: user.role,
+                token: generateToken(user.id, user.role),
+            });
+        } else {
+            res.status(400);
+            throw new Error('Invalid user data');
+        }
+    } catch (err) {
+        console.error('Error during user creation:', err);
+        res.status(500);
+        throw err;
     }
 });
 

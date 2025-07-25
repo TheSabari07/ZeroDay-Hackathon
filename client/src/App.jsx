@@ -7,6 +7,7 @@ import DashboardPage from './pages/Dashboard/DashboardPage';
 import TaskManagementPage from './pages/Tasks/TaskManagementPage';
 import AdminDashboardPage from './pages/Admin/AdminDashboardPage';
 import NotFoundPage from './pages/NotFoundPage';
+import NavBar from './components/NavBar';
 
 const PrivateRoute = ({ children, allowedRoles }) => {
   const { user, loading } = useAuth();
@@ -27,49 +28,59 @@ const PrivateRoute = ({ children, allowedRoles }) => {
   return children;
 };
 
+function AppRoutes() {
+  const { user } = useAuth();
+  return (
+    <>
+      {user && <NavBar />}
+      <Routes>
+        {/* Public Routes */}
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+
+        {/* Protected Routes */}
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute allowedRoles={["student", "admin"]}>
+              <DashboardPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/tasks"
+          element={
+            <PrivateRoute allowedRoles={["student", "admin"]}>
+              <TaskManagementPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <PrivateRoute allowedRoles={["admin"]}>
+              <AdminDashboardPage />
+            </PrivateRoute>
+          }
+        />
+
+        {/* Default redirect from / to /dashboard */}
+        <Route path="/" element={<Navigate to="/dashboard" replace />} />
+
+        {/* Catch-all route */}
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </>
+  );
+}
+
 function App() {
   return (
-    <BrowserRouter>
-      <AuthProvider>
-        <Routes>
-          {/* Public Routes */}
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-
-          {/* Protected Routes */}
-          <Route
-            path="/dashboard"
-            element={
-              <PrivateRoute allowedRoles={["student", "admin"]}>
-                <DashboardPage />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/tasks"
-            element={
-              <PrivateRoute allowedRoles={["student", "admin"]}>
-                <TaskManagementPage />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/admin"
-            element={
-              <PrivateRoute allowedRoles={["admin"]}>
-                <AdminDashboardPage />
-              </PrivateRoute>
-            }
-          />
-
-          {/* Default redirect from / to /dashboard */}
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
-
-          {/* Catch-all route */}
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </AuthProvider>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 
