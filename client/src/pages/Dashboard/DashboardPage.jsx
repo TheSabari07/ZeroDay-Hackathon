@@ -15,6 +15,19 @@ const DashboardPage = () => {
         >
           View Campus Announcements
         </Link>
+        {/* Lost & Found Buttons */}
+        <Link
+          to="/lostfound/report"
+          className="bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 text-white py-2 px-6 rounded-md font-semibold shadow hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2 transition duration-200 text-center"
+        >
+          Report Lost/Found Item
+        </Link>
+        <Link
+          to="/lostfound/browse"
+          className="bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 text-white py-2 px-6 rounded-md font-semibold shadow hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 transition duration-200 text-center"
+        >
+          Browse Lost & Found Items
+        </Link>
         {user?.role === 'admin' && (
           <Link
             to="/admin/announcements"

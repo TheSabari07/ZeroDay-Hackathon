@@ -13,6 +13,9 @@ import AnnouncementsPage from './pages/Announcements/AnnouncementsPage';
 import ComplaintRegistrationPage from './pages/Complaints/ComplaintRegistrationPage';
 import MyComplaintsPage from './pages/Complaints/MyComplaintsPage';
 import ComplaintManagementPage from './pages/Admin/ComplaintManagementPage';
+import ReportItemPage from './pages/LostFound/ReportItemPage';
+import BrowseItemsPage from './pages/LostFound/BrowseItemsPage';
+import ItemDetailsPage from './pages/LostFound/ItemDetailsPage';
 
 const PrivateRoute = ({ children, allowedRoles }) => {
   const { user, loading } = useAuth();
@@ -42,6 +45,18 @@ function AppRoutes() {
         {/* Public Routes */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        {/* Lost & Found Public Routes */}
+        <Route path="/lostfound/browse" element={<BrowseItemsPage />} />
+        <Route path="/lostfound/:id" element={<ItemDetailsPage />} />
+        {/* Protected Lost & Found Route */}
+        <Route
+          path="/lostfound/report"
+          element={
+            <PrivateRoute allowedRoles={["student", "admin"]}>
+              <ReportItemPage />
+            </PrivateRoute>
+          }
+        />
 
         {/* Protected Routes */}
         <Route
