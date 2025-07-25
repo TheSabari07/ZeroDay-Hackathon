@@ -15,6 +15,19 @@ const DashboardPage = () => {
         >
           View Campus Announcements
         </Link>
+        {/* Timetable Buttons */}
+        <Link
+          to="/timetable"
+          className="bg-gradient-to-r from-fuchsia-500 via-purple-500 to-blue-500 text-white py-2 px-6 rounded-md font-semibold shadow hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-fuchsia-400 focus:ring-offset-2 transition duration-200 text-center"
+        >
+          View My Timetable
+        </Link>
+        <Link
+          to="/timetable/add"
+          className="bg-gradient-to-r from-blue-400 via-blue-500 to-indigo-600 text-white py-2 px-6 rounded-md font-semibold shadow hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition duration-200 text-center"
+        >
+          Add New Class
+        </Link>
         {/* Lost & Found Buttons */}
         <Link
           to="/lostfound/report"
