@@ -40,7 +40,7 @@ const ScheduleFormPage = () => {
           setLocation(item.location || '');
           setInstructor(item.instructor || '');
         })
-        .catch(() => setError('Failed to load schedule item.'))
+        .catch(err => setError(err.message))
         .finally(() => setLoading(false));
     }
   }, [id]);
@@ -67,11 +67,12 @@ const ScheduleFormPage = () => {
         await scheduleService.createScheduleItem(itemData);
         setSuccess('Schedule item created successfully!');
       }
-      setTimeout(() => navigate('/timetable'), 1200);
+      setTimeout(() => {
+        navigate('/timetable', { replace: true });
+        window.location.reload();
+      }, 1200);
     } catch (err) {
-      setError(
-        err?.response?.data?.message || 'An error occurred. Please try again.'
-      );
+      setError(err.message);
     } finally {
       setLoading(false);
     }

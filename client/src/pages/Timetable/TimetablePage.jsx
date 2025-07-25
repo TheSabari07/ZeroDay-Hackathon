@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import scheduleService from '../../services/scheduleService';
 
 const daysOfWeek = [
@@ -17,9 +17,20 @@ const timeSlots = [
   '13:00', '14:00', '15:00', '16:00', '17:00',
 ];
 
-// Helper to check if a time is within a slot
+// Helper to convert HH:MM to minutes
+function timeToMinutes(t) {
+  const [h, m] = t.split(':').map(Number);
+  return h * 60 + m;
+}
+
+// Helper to check if a time is within a slot (overlap)
 function isInSlot(start, end, slot) {
-  return start <= slot && end > slot;
+  const slotStart = timeToMinutes(slot);
+  const slotEnd = slotStart + 60; // 1 hour slot
+  const classStart = timeToMinutes(start);
+  const classEnd = timeToMinutes(end);
+  // Return true if the slot and class overlap
+  return classStart < slotEnd && classEnd > slotStart;
 }
 
 // Generate a color for each class
@@ -43,6 +54,7 @@ const TimetablePage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     setLoading(true);
@@ -51,17 +63,17 @@ const TimetablePage = () => {
         setScheduleItems(data);
         setError('');
       })
-      .catch(() => setError('Failed to load timetable.'))
+      .catch(err => setError(err.message))
       .finally(() => setLoading(false));
-  }, []);
+  }, [location]);
 
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this class?')) return;
     try {
       await scheduleService.deleteScheduleItem(id);
       setScheduleItems(items => items.filter(item => item._id !== id));
-    } catch {
-      setError('Failed to delete class.');
+    } catch (err) {
+      setError(err.message);
     }
   };
 
