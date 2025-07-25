@@ -10,6 +10,9 @@ import NotFoundPage from './pages/NotFoundPage';
 import NavBar from './components/NavBar';
 import AnnouncementManagementPage from './pages/Admin/AnnouncementManagementPage';
 import AnnouncementsPage from './pages/Announcements/AnnouncementsPage';
+import ComplaintRegistrationPage from './pages/Complaints/ComplaintRegistrationPage';
+import MyComplaintsPage from './pages/Complaints/MyComplaintsPage';
+import ComplaintManagementPage from './pages/Admin/ComplaintManagementPage';
 
 const PrivateRoute = ({ children, allowedRoles }) => {
   const { user, loading } = useAuth();
@@ -78,6 +81,30 @@ function AppRoutes() {
           element={
             <PrivateRoute allowedRoles={["admin"]}>
               <AnnouncementManagementPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/complaints/register"
+          element={
+            <PrivateRoute allowedRoles={["student", "admin"]}>
+              <ComplaintRegistrationPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/complaints/my"
+          element={
+            <PrivateRoute allowedRoles={["student", "admin"]}>
+              <MyComplaintsPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/admin/complaints"
+          element={
+            <PrivateRoute allowedRoles={["admin"]}>
+              <ComplaintManagementPage />
             </PrivateRoute>
           }
         />
