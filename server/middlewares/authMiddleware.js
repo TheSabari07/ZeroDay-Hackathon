@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import expressAsyncHandler from 'express-async-handler';
-import User from '../models/userModel.js'; // Adjust the path based on your project structure
+import User from '../models/User.js'; // Corrected import path
 
 // Middleware to protect routes by verifying JWT
 export const protect = expressAsyncHandler(async (req, res, next) => {

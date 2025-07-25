@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
 import asyncHandler from 'express-async-handler';
-import User from '../models/userModel.js'; // Assuming a User model exists
+import User from '../models/User.js'; // Corrected import
 
 // Generate JWT token
 export const generateToken = (id, role) => {
@@ -19,13 +18,10 @@ export const registerUser = asyncHandler(async (req, res) => {
         throw new Error('User already exists');
     }
 
-    // Hash password
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Create user
+    // Create user (password will be hashed by pre-save hook)
     const user = await User.create({
         email,
-        password: hashedPassword,
+        password,
         role,
     });
 
@@ -49,7 +45,7 @@ export const loginUser = asyncHandler(async (req, res) => {
     // Find user by email
     const user = await User.findOne({ email });
 
-    if (user && (await bcrypt.compare(password, user.password))) {
+    if (user && (await user.matchPassword(password))) {
         res.json({
             id: user.id,
             email: user.email,

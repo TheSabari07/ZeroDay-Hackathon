@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -22,48 +22,40 @@ const LoginPage = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-6 bg-white rounded shadow-md">
-        <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
-        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              Email
-            </label>
+      <div className="w-full max-w-md p-8 bg-white rounded shadow-md">
+        <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+        {error && <div className="mb-4 text-red-500 text-center">{error}</div>}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block mb-1 font-medium">Email</label>
             <input
               type="email"
-              id="email"
+              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
               required
             />
           </div>
-          <div className="mb-4">
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-              Password
-            </label>
+          <div>
+            <label className="block mb-1 font-medium">Password</label>
             <input
               type="password"
-              id="password"
+              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
               required
             />
           </div>
           <button
             type="submit"
-            className="w-full py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
+            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition-colors"
           >
             Login
           </button>
         </form>
-        <p className="text-center mt-4">
+        <p className="mt-4 text-center text-gray-600">
           Don't have an account?{' '}
-          <a href="/register" className="text-blue-500 hover:underline">
-            Register
-          </a>
+          <Link to="/register" className="text-blue-600 hover:underline">Register</Link>
         </p>
       </div>
     </div>

@@ -1,57 +1,76 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
-import NotFoundPage from './pages/NotFoundPage';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-import DashboardPage from './pages/DashboardPage';
-import TasksPage from './pages/TasksPage';
-import AdminPage from './pages/AdminPage';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import LoginPage from './pages/Auth/LoginPage';
+import RegisterPage from './pages/Auth/RegisterPage';
+import DashboardPage from './pages/Dashboard/DashboardPage';
+import TaskManagementPage from './pages/Tasks/TaskManagementPage';
+import AdminDashboardPage from './pages/Admin/AdminDashboardPage';
+import NotFoundPage from './pages/NotFoundPage';
 
-// PrivateRoute component for role-based access control
-const PrivateRoute = ({ allowedRoles }) => {
-    const { isAuthenticated, userRole } = useAuth();
+const PrivateRoute = ({ children, allowedRoles }) => {
+  const { user, loading } = useAuth();
 
-    if (!isAuthenticated) {
-        return <Navigate to="/login" />;
-    }
+  if (loading) {
+    return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
+  }
 
-    if (allowedRoles && !allowedRoles.includes(userRole)) {
-        return <Navigate to="/dashboard" />;
-    }
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
 
-    return <Outlet />;
+  if (allowedRoles && !allowedRoles.includes(user.role)) {
+    // If user is not authorized for this route
+    return <Navigate to="/dashboard" replace />;
+  }
+
+  return children;
 };
 
-const App = () => {
-    return (
-        <AuthProvider>
-            <BrowserRouter>
-                <Routes>
-                    {/* Public routes */}
-                    <Route path="/login" element={<LoginPage />} />
-                    <Route path="/register" element={<RegisterPage />} />
+function App() {
+  return (
+    <BrowserRouter>
+      <AuthProvider>
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
 
-                    {/* Protected routes */}
-                    <Route element={<PrivateRoute allowedRoles={['student', 'admin']} />}>
-                        <Route path="/dashboard" element={<DashboardPage />} />
-                        <Route path="/tasks" element={<TasksPage />} />
-                    </Route>
+          {/* Protected Routes */}
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateRoute allowedRoles={["student", "admin"]}>
+                <DashboardPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/tasks"
+            element={
+              <PrivateRoute allowedRoles={["student", "admin"]}>
+                <TaskManagementPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <PrivateRoute allowedRoles={["admin"]}>
+                <AdminDashboardPage />
+              </PrivateRoute>
+            }
+          />
 
-                    {/* Admin-only routes */}
-                    <Route element={<PrivateRoute allowedRoles={['admin']} />}>
-                        <Route path="/admin" element={<AdminPage />} />
-                    </Route>
+          {/* Default redirect from / to /dashboard */}
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
-                    {/* Default redirect */}
-                    <Route path="/" element={<Navigate to="/dashboard" />} />
-
-                    {/* Catch-all route */}
-                    <Route path="*" element={<NotFoundPage />} />
-                </Routes>
-            </BrowserRouter>
-        </AuthProvider>
-    );
-};
+          {/* Catch-all route */}
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </AuthProvider>
+    </BrowserRouter>
+  );
+}
 
 export default App;

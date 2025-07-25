@@ -1,2 +1,26 @@
-// TODO: Set up Express server entry point.
-// Use ES module syntax for imports and exports.
+import dotenv from 'dotenv';
+import express from 'express';
+import cors from 'cors';
+import connectDB from './config/db.js';
+import authRoutes from './routes/authRoutes.js';
+import errorHandler from './middlewares/errorHandler.js';
+
+dotenv.config();
+connectDB();
+
+const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cors());
+
+app.use('/api/auth', authRoutes);
+
+app.use(errorHandler);
+
+const PORT = process.env.PORT || 5000;
+const ENV = process.env.NODE_ENV || 'development';
+
+app.listen(PORT, () => {
+  console.log(`Server running in ${ENV} mode on port ${PORT}`);
+});

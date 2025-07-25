@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useAuth } from '../../hooks/useAuth';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 const RegisterPage = () => {
   const [email, setEmail] = useState('');
@@ -12,49 +12,50 @@ const RegisterPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;
     }
     try {
-      await register(email, password);
+      await register({ email, password });
       navigate('/dashboard');
     } catch (err) {
-      setError(err.message || 'Registration failed');
+      setError('Registration failed. Please try again.');
     }
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-6 bg-white rounded shadow-md">
-        <h2 className="text-2xl font-bold text-center mb-6">Register</h2>
-        {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Email</label>
+      <div className="w-full max-w-md p-8 bg-white rounded shadow-md">
+        <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
+        {error && <div className="mb-4 text-red-500 text-center">{error}</div>}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block mb-1 font-medium">Email</label>
             <input
               type="email"
-              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
+              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Password</label>
+          <div>
+            <label className="block mb-1 font-medium">Password</label>
             <input
               type="password"
-              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
+              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Confirm Password</label>
+          <div>
+            <label className="block mb-1 font-medium">Confirm Password</label>
             <input
               type="password"
-              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
+              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
@@ -62,16 +63,14 @@ const RegisterPage = () => {
           </div>
           <button
             type="submit"
-            className="w-full py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
+            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition-colors"
           >
             Register
           </button>
         </form>
-        <p className="text-sm text-center mt-4">
+        <p className="mt-4 text-center text-gray-600">
           Already have an account?{' '}
-          <a href="/login" className="text-blue-500 hover:underline">
-            Login
-          </a>
+          <Link to="/login" className="text-blue-600 hover:underline">Login</Link>
         </p>
       </div>
     </div>
