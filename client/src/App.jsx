@@ -8,6 +8,8 @@ import TaskManagementPage from './pages/Tasks/TaskManagementPage';
 import AdminDashboardPage from './pages/Admin/AdminDashboardPage';
 import NotFoundPage from './pages/NotFoundPage';
 import NavBar from './components/NavBar';
+import AnnouncementManagementPage from './pages/Admin/AnnouncementManagementPage';
+import AnnouncementsPage from './pages/Announcements/AnnouncementsPage';
 
 const PrivateRoute = ({ children, allowedRoles }) => {
   const { user, loading } = useAuth();
@@ -60,6 +62,22 @@ function AppRoutes() {
           element={
             <PrivateRoute allowedRoles={["admin"]}>
               <AdminDashboardPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/announcements"
+          element={
+            <PrivateRoute allowedRoles={["student", "admin"]}>
+              <AnnouncementsPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/admin/announcements"
+          element={
+            <PrivateRoute allowedRoles={["admin"]}>
+              <AnnouncementManagementPage />
             </PrivateRoute>
           }
         />

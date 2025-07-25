@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import connectDB from './config/db.js';
 import authRoutes from './routes/authRoutes.js';
+import announcementRoutes from './routes/announcementRoutes.js';
 import errorHandler from './middlewares/errorHandler.js';
 
 dotenv.config();
@@ -15,6 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
 app.use('/api/auth', authRoutes);
+app.use('/api/announcements', announcementRoutes);
 
 app.use(errorHandler);
 
