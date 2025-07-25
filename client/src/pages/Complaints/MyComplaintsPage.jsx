@@ -46,13 +46,13 @@ const MyComplaintsPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-8 px-2">
-      <div className="max-w-3xl mx-auto">
-        <h2 className="text-2xl font-bold mb-6 text-center">My Complaints</h2>
+    <div className="max-w-6xl mx-auto p-6 mt-8 animate-fade-in">
+      <div className="glass-card w-full max-w-3xl mx-auto p-8 my-8">
+        <h2 className="text-4xl font-extrabold text-center mb-6 bg-gradient-to-r from-blue-400 via-blue-500 to-purple-500 bg-clip-text text-transparent animate-slide-in">My Complaints</h2>
         {loading ? (
           <div className="text-center">Loading...</div>
         ) : error ? (
-          <div className="text-center text-red-600">{error}</div>
+          <div className="text-center text-red-600 mb-4">{error}</div>
         ) : complaints.length === 0 ? (
           <div className="text-center text-gray-500">No complaints found.</div>
         ) : (
@@ -60,7 +60,7 @@ const MyComplaintsPage = () => {
             {complaints.map((complaint) => (
               <div
                 key={complaint._id}
-                className="bg-white rounded shadow p-4 flex flex-col md:flex-row md:items-center md:justify-between"
+                className="bg-white/80 backdrop-blur-sm rounded-lg shadow p-4 flex flex-col md:flex-row md:items-center md:justify-between border border-gray-200 hover:shadow-lg transition"
               >
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-2">
@@ -94,7 +94,7 @@ const MyComplaintsPage = () => {
                   {(complaint.status === 'Pending' || complaint.status === 'Rejected') && (
                     <button
                       onClick={() => handleDelete(complaint._id)}
-                      className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-sm"
+                      className="px-3 py-1 bg-gradient-to-r from-red-500 via-pink-500 to-purple-500 text-white rounded hover:scale-105 hover:shadow-lg text-sm transition"
                     >
                       Delete
                     </button>

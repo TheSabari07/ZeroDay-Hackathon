@@ -81,8 +81,8 @@ const ComplaintManagementPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-8 px-2">
-      <div className="max-w-6xl mx-auto">
+    <div className="max-w-6xl mx-auto p-6 mt-8 animate-fade-in">
+      <>
         <h2 className="text-2xl font-bold mb-6 text-center">Admin Complaint Management</h2>
         <div className="mb-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
@@ -175,7 +175,7 @@ const ComplaintManagementPage = () => {
             </table>
           </div>
         )}
-      </div>
+      </>
     </div>
   );
 };

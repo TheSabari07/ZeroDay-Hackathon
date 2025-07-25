@@ -38,25 +38,27 @@ const ComplaintRegistrationPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 bg-white rounded shadow-md">
-        <h2 className="text-2xl font-bold mb-6 text-center">Complaint Registration</h2>
+    <div className="max-w-6xl mx-auto p-6 mt-8 animate-fade-in">
+      <div className="glass-card w-full sm:max-w-md mx-auto p-8 my-8">
+        <h2 className="text-4xl font-extrabold text-center mb-6 bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 bg-clip-text text-transparent animate-slide-in">Raise a Complaint</h2>
+        {error && <div className="mb-4 text-red-500 text-center text-sm mt-1">{error}</div>}
+        {success && <div className="mb-4 text-green-600 text-center text-sm mt-1">{success}</div>}
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block mb-1 font-medium">Room Number</label>
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-1">Room Number</label>
             <input
               type="text"
-              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-400"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 bg-white/70 backdrop-blur-sm"
               value={roomNumber}
               onChange={(e) => setRoomNumber(e.target.value)}
               required
               minLength={1}
             />
           </div>
-          <div>
-            <label className="block mb-1 font-medium">Category</label>
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
             <select
-              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-400"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 bg-white/70 backdrop-blur-sm"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               required
@@ -66,10 +68,10 @@ const ComplaintRegistrationPage = () => {
               ))}
             </select>
           </div>
-          <div>
-            <label className="block mb-1 font-medium">Description</label>
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
             <textarea
-              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-400"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 bg-white/70 backdrop-blur-sm"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               required
@@ -77,11 +79,9 @@ const ComplaintRegistrationPage = () => {
               rows={4}
             />
           </div>
-          {error && <div className="text-red-600 text-sm">{error}</div>}
-          {success && <div className="text-green-600 text-sm">{success}</div>}
           <button
             type="submit"
-            className="w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition"
+            className="w-full py-2 px-4 bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 text-white font-semibold rounded-md shadow hover:scale-105 hover:shadow-2xl transition duration-200"
             disabled={loading}
           >
             {loading ? 'Submitting...' : 'Submit Complaint'}

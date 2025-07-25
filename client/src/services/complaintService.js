@@ -5,7 +5,8 @@ const API_URL = `${API_BASE_URL}/complaints`;
 
 // Helper to get auth config
 async function getConfig() {
-  const token = localStorage.getItem('token');
+  const user = JSON.parse(localStorage.getItem('user'));
+  const token = user?.token;
   return {
     headers: {
       Authorization: token ? `Bearer ${token}` : '',
