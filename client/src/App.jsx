@@ -175,7 +175,6 @@ function AppRoutes() {
             }
           />
           <Route path="/skills/browse" element={<BrowseSkillsPage />} />
-          <Route path="/skills/:id" element={<SkillDetailsPage />} />
           <Route
             path="/skills/my-listings"
             element={
@@ -192,6 +191,7 @@ function AppRoutes() {
               </PrivateRoute>
             }
           />
+          <Route path="/skills/:id" element={<SkillDetailsPage />} />
 
           {/* Default redirect from / to /dashboard */}
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
