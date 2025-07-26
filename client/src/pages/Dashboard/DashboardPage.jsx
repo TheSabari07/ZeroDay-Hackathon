@@ -23,6 +23,14 @@ const DashboardPage = () => {
       category: 'Communication'
     },
     {
+      title: 'Tech News & Opportunities',
+      description: 'Browse latest tech news, internships, and opportunities',
+      icon: '🚀',
+      link: '/feed',
+      color: 'from-indigo-500 to-indigo-600',
+      category: 'Opportunities'
+    },
+    {
       title: 'My Timetable',
       description: 'View and manage your class schedule',
       icon: '📅',
@@ -114,6 +122,14 @@ const DashboardPage = () => {
       icon: '⚙️',
       link: '/admin/announcements',
       color: 'from-yellow-500 to-yellow-600',
+      category: 'Administration'
+    },
+    {
+      title: 'Manage Feed Items',
+      description: 'Create and manage tech news and opportunities',
+      icon: '📰',
+      link: '/admin/feed',
+      color: 'from-red-500 to-red-600',
       category: 'Administration'
     },
     {

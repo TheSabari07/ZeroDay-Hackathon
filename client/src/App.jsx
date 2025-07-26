@@ -23,6 +23,8 @@ import BrowseSkillsPage from './pages/Skills/BrowseSkillsPage';
 import SkillDetailsPage from './pages/Skills/SkillDetailsPage';
 import MySkillsPage from './pages/Skills/MySkillsPage';
 import MyBookingsPage from './pages/Skills/MyBookingsPage';
+import FeedManagementPage from './pages/Admin/FeedManagementPage';
+import FeedPage from './pages/Feed/FeedPage';
 
 const PrivateRoute = ({ children, allowedRoles }) => {
   const { user, loading } = useAuth();
@@ -60,6 +62,8 @@ function AppRoutes() {
           {/* Public Routes */}
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          {/* Feed Public Route */}
+          <Route path="/feed" element={<FeedPage />} />
           {/* Lost & Found Public Routes */}
           <Route path="/lostfound/browse" element={<BrowseItemsPage />} />
           <Route path="/lostfound/:id" element={<ItemDetailsPage />} />
@@ -111,6 +115,14 @@ function AppRoutes() {
             element={
               <PrivateRoute allowedRoles={["admin"]}>
                 <AnnouncementManagementPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/admin/feed"
+            element={
+              <PrivateRoute allowedRoles={["admin"]}>
+                <FeedManagementPage />
               </PrivateRoute>
             }
           />

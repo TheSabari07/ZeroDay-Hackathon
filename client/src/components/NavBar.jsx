@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { motion } from 'framer-motion';
@@ -7,6 +7,7 @@ const NavBar = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleLogout = () => {
     logout();
@@ -34,8 +35,8 @@ const NavBar = () => {
             <span className="font-bold text-xl text-gradient">ZeroDay</span>
           </Link>
 
-          {/* Navigation Links */}
-          <div className="hidden md:flex items-center space-x-8">
+          {/* Desktop Navigation Links */}
+          <div className="hidden lg:flex items-center space-x-6">
             <motion.div whileHover={{ scale: 1.05 }}>
               <Link 
                 to="/dashboard" 
@@ -49,18 +50,45 @@ const NavBar = () => {
               </Link>
             </motion.div>
             
-            <motion.div whileHover={{ scale: 1.05 }}>
-              <Link 
-                to="/announcements" 
-                className={`text-sm font-medium transition-colors duration-200 ${
-                  isActive('/announcements') 
-                    ? 'text-white bg-white/20 px-3 py-2 rounded-lg' 
-                    : 'text-white/80 hover:text-white'
-                }`}
-              >
-                Announcements
-              </Link>
-            </motion.div>
+            {/* News & Updates Dropdown */}
+            <div className="relative group">
+              <button className={`text-sm font-medium transition-colors duration-200 flex items-center gap-1 ${
+                isActive('/announcements') || isActive('/feed')
+                  ? 'text-white bg-white/20 px-3 py-2 rounded-lg' 
+                  : 'text-white/80 hover:text-white'
+              }`}>
+                News & Updates
+                <svg className="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              
+              {/* Dropdown Menu */}
+              <div className="absolute top-full left-0 mt-2 w-48 bg-white/95 backdrop-blur-md rounded-lg shadow-xl border border-white/20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top scale-95 group-hover:scale-100">
+                <div className="py-2">
+                  <Link 
+                    to="/announcements" 
+                    className={`block px-4 py-2 text-sm transition-colors duration-200 ${
+                      isActive('/announcements')
+                        ? 'text-indigo-600 bg-indigo-50 font-medium' 
+                        : 'text-gray-700 hover:text-indigo-600 hover:bg-indigo-50'
+                    }`}
+                  >
+                    📢 Campus Announcements
+                  </Link>
+                  <Link 
+                    to="/feed" 
+                    className={`block px-4 py-2 text-sm transition-colors duration-200 ${
+                      isActive('/feed')
+                        ? 'text-indigo-600 bg-indigo-50 font-medium' 
+                        : 'text-gray-700 hover:text-indigo-600 hover:bg-indigo-50'
+                    }`}
+                  >
+                    🚀 Tech News & Opportunities
+                  </Link>
+                </div>
+              </div>
+            </div>
             
             <motion.div whileHover={{ scale: 1.05 }}>
               <Link 
@@ -160,6 +188,22 @@ const NavBar = () => {
             )}
           </div>
 
+          {/* Mobile Menu Button */}
+          <div className="lg:hidden">
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="text-white p-2 rounded-lg hover:bg-white/20 transition-colors duration-200"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {isMobileMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
+          </div>
+
           {/* User Menu */}
           <div className="flex items-center space-x-4">
             {/* User Info */}
@@ -187,6 +231,169 @@ const NavBar = () => {
           </div>
         </div>
       </div>
+
+      {/* Mobile Navigation Menu */}
+      {isMobileMenuOpen && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: 'auto' }}
+          exit={{ opacity: 0, height: 0 }}
+          className="lg:hidden bg-white/95 backdrop-blur-md border-t border-white/20"
+        >
+          <div className="px-4 py-4 space-y-3">
+            {/* Dashboard */}
+            <Link 
+              to="/dashboard" 
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={`block px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-200 ${
+                isActive('/dashboard')
+                  ? 'text-indigo-600 bg-indigo-50' 
+                  : 'text-gray-700 hover:text-indigo-600 hover:bg-indigo-50'
+              }`}
+            >
+              🏠 Dashboard
+            </Link>
+
+            {/* News & Updates */}
+            <div className="space-y-1">
+              <div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                News & Updates
+              </div>
+              <Link 
+                to="/announcements" 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`block px-3 py-2 rounded-lg text-sm transition-colors duration-200 ${
+                  isActive('/announcements')
+                    ? 'text-indigo-600 bg-indigo-50 font-medium' 
+                    : 'text-gray-700 hover:text-indigo-600 hover:bg-indigo-50'
+                }`}
+              >
+                📢 Campus Announcements
+              </Link>
+              <Link 
+                to="/feed" 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`block px-3 py-2 rounded-lg text-sm transition-colors duration-200 ${
+                  isActive('/feed')
+                    ? 'text-indigo-600 bg-indigo-50 font-medium' 
+                    : 'text-gray-700 hover:text-indigo-600 hover:bg-indigo-50'
+                }`}
+              >
+                🚀 Tech News & Opportunities
+              </Link>
+            </div>
+
+            {/* Academic */}
+            <div className="space-y-1">
+              <div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                Academic
+              </div>
+              <Link 
+                to="/timetable" 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`block px-3 py-2 rounded-lg text-sm transition-colors duration-200 ${
+                  isActive('/timetable')
+                    ? 'text-indigo-600 bg-indigo-50 font-medium' 
+                    : 'text-gray-700 hover:text-indigo-600 hover:bg-indigo-50'
+                }`}
+              >
+                📅 Timetable
+              </Link>
+            </div>
+
+            {/* Campus Life */}
+            <div className="space-y-1">
+              <div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                Campus Life
+              </div>
+              <Link 
+                to="/lostfound/browse" 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`block px-3 py-2 rounded-lg text-sm transition-colors duration-200 ${
+                  isActive('/lostfound')
+                    ? 'text-indigo-600 bg-indigo-50 font-medium' 
+                    : 'text-gray-700 hover:text-indigo-600 hover:bg-indigo-50'
+                }`}
+              >
+                🔍 Lost & Found
+              </Link>
+              <Link 
+                to="/skills/browse" 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`block px-3 py-2 rounded-lg text-sm transition-colors duration-200 ${
+                  isActive('/skills/browse')
+                    ? 'text-indigo-600 bg-indigo-50 font-medium' 
+                    : 'text-gray-700 hover:text-indigo-600 hover:bg-indigo-50'
+                }`}
+              >
+                🎯 Browse Skills
+              </Link>
+            </div>
+
+            {/* Student Services */}
+            {user?.role === 'student' && (
+              <div className="space-y-1">
+                <div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                  Student Services
+                </div>
+                <Link 
+                  to="/skills/my-listings" 
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`block px-3 py-2 rounded-lg text-sm transition-colors duration-200 ${
+                    isActive('/skills/my-listings')
+                      ? 'text-indigo-600 bg-indigo-50 font-medium' 
+                      : 'text-gray-700 hover:text-indigo-600 hover:bg-indigo-50'
+                  }`}
+                >
+                  📋 My Skills
+                </Link>
+                <Link 
+                  to="/skills/my-bookings" 
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`block px-3 py-2 rounded-lg text-sm transition-colors duration-200 ${
+                    isActive('/skills/my-bookings')
+                      ? 'text-indigo-600 bg-indigo-50 font-medium' 
+                      : 'text-gray-700 hover:text-indigo-600 hover:bg-indigo-50'
+                  }`}
+                >
+                  🤝 My Sessions
+                </Link>
+                <Link 
+                  to="/complaints/my" 
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`block px-3 py-2 rounded-lg text-sm transition-colors duration-200 ${
+                    isActive('/complaints')
+                      ? 'text-indigo-600 bg-indigo-50 font-medium' 
+                      : 'text-gray-700 hover:text-indigo-600 hover:bg-indigo-50'
+                  }`}
+                >
+                  📝 Complaints
+                </Link>
+              </div>
+            )}
+
+            {/* Admin Panel */}
+            {user?.role === 'admin' && (
+              <div className="space-y-1">
+                <div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                  Administration
+                </div>
+                <Link 
+                  to="/admin" 
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`block px-3 py-2 rounded-lg text-sm transition-colors duration-200 ${
+                    isActive('/admin')
+                      ? 'text-indigo-600 bg-indigo-50 font-medium' 
+                      : 'text-gray-700 hover:text-indigo-600 hover:bg-indigo-50'
+                  }`}
+                >
+                  ⚙️ Admin Panel
+                </Link>
+              </div>
+            )}
+          </div>
+        </motion.div>
+      )}
     </motion.nav>
   );
 };
