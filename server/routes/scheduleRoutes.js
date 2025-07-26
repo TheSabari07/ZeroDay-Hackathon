@@ -1,13 +1,14 @@
-const express = require('express');
-const router = express.Router();
-const { 
+import express from 'express';
+import { 
   createScheduleItem,
   getStudentSchedule,
   getScheduleItemById,
   updateScheduleItem,
   deleteScheduleItem
-} = require('../controllers/scheduleController');
-const { protect } = require('../middlewares/authMiddleware');
+} from '../controllers/scheduleController.js';
+import { protect } from '../middlewares/authMiddleware.js';
+
+const router = express.Router();
 
 // Create a new schedule item
 router.post('/', protect, createScheduleItem);
@@ -20,4 +21,4 @@ router.get('/:id', protect, getScheduleItemById);
 router.put('/:id', protect, updateScheduleItem);
 router.delete('/:id', protect, deleteScheduleItem);
 
-module.exports = router; 
+export default router; 

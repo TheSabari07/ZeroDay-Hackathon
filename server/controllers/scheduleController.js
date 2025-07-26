@@ -1,6 +1,6 @@
-const asyncHandler = require('express-async-handler');
-const ScheduleItem = require('../models/ScheduleItem');
-const User = require('../models/User');
+import asyncHandler from 'express-async-handler';
+import ScheduleItem from '../models/ScheduleItem.js';
+import User from '../models/User.js';
 
 // Create a new schedule item
 const createScheduleItem = asyncHandler(async (req, res) => {
@@ -84,7 +84,7 @@ const deleteScheduleItem = asyncHandler(async (req, res) => {
   res.json({ message: 'Schedule item deleted successfully' });
 });
 
-module.exports = {
+export {
   createScheduleItem,
   getStudentSchedule,
   getScheduleItemById,
