@@ -218,12 +218,9 @@ const MyBookingsPage = () => {
                         <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
                         <span>Updating...</span>
                       </>
-                    ) : (
-                      <>
-                        <span>✅</span>
-                        <span>Accept</span>
-                      </>
-                    )}
+                                         ) : (
+                       <span>Accept</span>
+                     )}
                   </motion.button>
                   <motion.button
                     onClick={() => handleStatusUpdate(booking._id, 'Rejected')}
@@ -237,12 +234,9 @@ const MyBookingsPage = () => {
                         <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
                         <span>Updating...</span>
                       </>
-                    ) : (
-                      <>
-                        <span>❌</span>
-                        <span>Reject</span>
-                      </>
-                    )}
+                                         ) : (
+                       <span>Reject</span>
+                     )}
                   </motion.button>
                 </>
               )}
@@ -261,12 +255,9 @@ const MyBookingsPage = () => {
                         <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
                         <span>Updating...</span>
                       </>
-                    ) : (
-                      <>
-                        <span>🎉</span>
-                        <span>Mark Completed</span>
-                      </>
-                    )}
+                                         ) : (
+                       <span>Mark Completed</span>
+                     )}
                   </motion.button>
                   <motion.button
                     onClick={() => handleStatusUpdate(booking._id, 'Cancelled')}
@@ -280,12 +271,9 @@ const MyBookingsPage = () => {
                         <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
                         <span>Updating...</span>
                       </>
-                    ) : (
-                      <>
-                        <span>🚫</span>
-                        <span>Cancel</span>
-                      </>
-                    )}
+                                         ) : (
+                       <span>Cancel</span>
+                     )}
                   </motion.button>
                 </>
               )}
@@ -306,12 +294,9 @@ const MyBookingsPage = () => {
                       <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
                       <span>Updating...</span>
                     </>
-                  ) : (
-                    <>
-                      <span>🚫</span>
-                      <span>Cancel Booking</span>
-                    </>
-                  )}
+                                     ) : (
+                     <span>Cancel Booking</span>
+                   )}
                 </motion.button>
               )}
             </>
@@ -515,7 +500,7 @@ const MyBookingsPage = () => {
               whileTap={{ scale: 0.95 }}
               className="btn-secondary text-lg px-8 py-3"
             >
-              🔄 Refresh Sessions
+              Refresh Sessions
             </motion.button>
             <motion.button
               onClick={() => navigate('/skills/browse')}
@@ -523,7 +508,7 @@ const MyBookingsPage = () => {
               whileTap={{ scale: 0.95 }}
               className="btn-primary text-lg px-8 py-3"
             >
-              🎯 Browse More Skills
+              Browse More Skills
             </motion.button>
           </div>
         </motion.div>

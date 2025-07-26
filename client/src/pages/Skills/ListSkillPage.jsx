@@ -321,12 +321,11 @@ const ListSkillPage = () => {
                     <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white mr-3"></div>
                     Creating Your Skill Listing...
                   </div>
-                ) : (
-                  <div className="flex items-center justify-center">
-                    <span className="mr-2">🚀</span>
-                    List My Skill
-                  </div>
-                )}
+                                  ) : (
+                    <div className="flex items-center justify-center">
+                      List My Skill
+                    </div>
+                  )}
               </motion.button>
 
               <motion.button
