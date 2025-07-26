@@ -7,6 +7,8 @@ import announcementRoutes from './routes/announcementRoutes.js';
 import complaintRoutes from './routes/complaintRoutes.js';
 import lostFoundRoutes from './routes/lostFoundRoutes.js';
 import scheduleRoutes from './routes/scheduleRoutes.js';
+import skillRoutes from './routes/skillRoutes.js';
+import bookingRoutes from './routes/bookingRoutes.js';
 import errorHandler from './middlewares/errorHandler.js';
 import path from 'path';
 
@@ -27,6 +29,8 @@ app.use('/api/announcements', announcementRoutes);
 app.use('/api/complaints', complaintRoutes);
 app.use('/api/lostfound', lostFoundRoutes);
 app.use('/api/schedule', scheduleRoutes);
+app.use('/api/skills', skillRoutes);
+app.use('/api/bookings', bookingRoutes);
 
 app.use(errorHandler);
 
