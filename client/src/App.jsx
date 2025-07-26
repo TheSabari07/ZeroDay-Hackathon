@@ -27,6 +27,7 @@ import FeedManagementPage from './pages/Admin/FeedManagementPage';
 import FeedPage from './pages/Feed/FeedPage';
 import PollsPage from './pages/Polls/PollsPage';
 import PollManagementPage from './pages/Admin/PollManagementPage';
+import ScrollToTop from './components/ScrollToTop';
 
 const PrivateRoute = ({ children, allowedRoles }) => {
   const { user, loading } = useAuth();
@@ -58,6 +59,7 @@ function AppRoutes() {
   const { user } = useAuth();
   return (
     <div className="min-h-screen">
+      <ScrollToTop />
       {user && <NavBar />}
       <main className={user ? 'pt-0' : 'pt-0'}>
         <Routes>

@@ -129,6 +129,19 @@ const NavBar = () => {
               </Link>
             </motion.div>
             
+            <motion.div whileHover={{ scale: 1.05 }}>
+              <Link 
+                to="/polls" 
+                className={`text-sm font-medium transition-colors duration-200 ${
+                  isActive('/polls') 
+                    ? 'text-white bg-white/20 px-3 py-2 rounded-lg' 
+                    : 'text-white/80 hover:text-white'
+                }`}
+              >
+                Polls
+              </Link>
+            </motion.div>
+            
             {user?.role === 'student' && (
               <>
                 <motion.div whileHover={{ scale: 1.05 }}>
@@ -327,6 +340,17 @@ const NavBar = () => {
                 }`}
               >
                 🎯 Browse Skills
+              </Link>
+              <Link 
+                to="/polls" 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`block px-3 py-2 rounded-lg text-sm transition-colors duration-200 ${
+                  isActive('/polls')
+                    ? 'text-indigo-600 bg-indigo-50 font-medium' 
+                    : 'text-gray-700 hover:text-indigo-600 hover:bg-indigo-50'
+                }`}
+              >
+                🗳️ Polls
               </Link>
             </div>
 

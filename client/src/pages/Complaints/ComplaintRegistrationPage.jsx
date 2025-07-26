@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import complaintService from '../../services/complaintService';
 
 const categories = [
@@ -38,55 +39,129 @@ const ComplaintRegistrationPage = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-6 mt-8 animate-fade-in">
-      <div className="glass-card w-full sm:max-w-md mx-auto p-8 my-8">
-        <h2 className="text-4xl font-extrabold text-center mb-6 bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 bg-clip-text text-transparent animate-slide-in">Raise a Complaint</h2>
-        {error && <div className="mb-4 text-red-500 text-center text-sm mt-1">{error}</div>}
-        {success && <div className="mb-4 text-green-600 text-center text-sm mt-1">{success}</div>}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">Room Number</label>
-            <input
-              type="text"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 bg-white/70 backdrop-blur-sm"
-              value={roomNumber}
-              onChange={(e) => setRoomNumber(e.target.value)}
-              required
-              minLength={1}
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
-            <select
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 bg-white/70 backdrop-blur-sm"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              required
+    <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-blue-400 to-purple-400 p-4">
+      <div className="max-w-2xl mx-auto">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-8"
+        >
+          <h1 className="text-4xl font-bold text-white mb-2">Raise a Complaint</h1>
+          <p className="text-xl text-white/90">
+            Report issues and help us improve campus facilities
+          </p>
+        </motion.div>
+
+        {/* Form Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="glass-card p-8"
+        >
+          {/* Error and Success Messages */}
+          {error && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg"
             >
-              {categories.map((cat) => (
-                <option key={cat} value={cat}>{cat}</option>
-              ))}
-            </select>
+              {error}
+            </motion.div>
+          )}
+          {success && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="mb-6 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg"
+            >
+              {success}
+            </motion.div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Room Number */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Room Number *
+              </label>
+              <input
+                type="text"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
+                value={roomNumber}
+                onChange={(e) => setRoomNumber(e.target.value)}
+                placeholder="e.g., 101, A-205, Block 3 Room 12"
+                required
+                minLength={1}
+              />
+            </div>
+
+            {/* Category */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Issue Category *
+              </label>
+              <select
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                required
+              >
+                {categories.map((cat) => (
+                  <option key={cat} value={cat}>{cat}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* Description */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Description *
+              </label>
+              <textarea
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                required
+                minLength={10}
+                rows={5}
+                placeholder="Please provide a detailed description of the issue. Include any relevant details that will help us understand and resolve the problem quickly."
+              />
+              <p className="mt-1 text-xs text-gray-500">
+                Minimum 10 characters required
+              </p>
+            </div>
+
+            {/* Submit Button */}
+            <motion.button
+              type="submit"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              disabled={loading}
+              className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+            >
+              {loading ? (
+                <div className="flex items-center justify-center">
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                  Submitting...
+                </div>
+              ) : (
+                "Submit Complaint"
+              )}
+            </motion.button>
+          </form>
+
+          {/* Help Text */}
+          <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <h3 className="text-sm font-medium text-blue-800 mb-2">Need Help?</h3>
+            <p className="text-sm text-blue-700">
+              For urgent issues or emergencies, please contact the maintenance office directly. 
+              This form is for non-emergency complaints and will be addressed within 24-48 hours.
+            </p>
           </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
-            <textarea
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 bg-white/70 backdrop-blur-sm"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              required
-              minLength={10}
-              rows={4}
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full py-2 px-4 bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 text-white font-semibold rounded-md shadow hover:scale-105 hover:shadow-2xl transition duration-200"
-            disabled={loading}
-          >
-            {loading ? 'Submitting...' : 'Submit Complaint'}
-          </button>
-        </form>
+        </motion.div>
       </div>
     </div>
   );
