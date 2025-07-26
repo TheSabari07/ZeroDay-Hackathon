@@ -10,6 +10,8 @@ import scheduleRoutes from './routes/scheduleRoutes.js';
 import skillRoutes from './routes/skillRoutes.js';
 import bookingRoutes from './routes/bookingRoutes.js';
 import feedItemRoutes from './routes/feedItemRoutes.js';
+import pollRoutes from './routes/pollRoutes.js';
+import voteRoutes from './routes/voteRoutes.js';
 import errorHandler from './middlewares/errorHandler.js';
 import path from 'path';
 
@@ -33,6 +35,8 @@ app.use('/api/schedule', scheduleRoutes);
 app.use('/api/skills', skillRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/feed', feedItemRoutes);
+app.use('/api/polls', pollRoutes);
+app.use('/api/votes', voteRoutes);
 
 app.use(errorHandler);
 
