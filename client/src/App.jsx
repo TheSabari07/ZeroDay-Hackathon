@@ -18,6 +18,11 @@ import BrowseItemsPage from './pages/LostFound/BrowseItemsPage';
 import ItemDetailsPage from './pages/LostFound/ItemDetailsPage';
 import ScheduleFormPage from './pages/Timetable/ScheduleFormPage';
 import TimetablePage from './pages/Timetable/TimetablePage';
+import ListSkillPage from './pages/Skills/ListSkillPage';
+import BrowseSkillsPage from './pages/Skills/BrowseSkillsPage';
+import SkillDetailsPage from './pages/Skills/SkillDetailsPage';
+import MySkillsPage from './pages/Skills/MySkillsPage';
+import MyBookingsPage from './pages/Skills/MyBookingsPage';
 
 const PrivateRoute = ({ children, allowedRoles }) => {
   const { user, loading } = useAuth();
@@ -156,6 +161,34 @@ function AppRoutes() {
             element={
               <PrivateRoute allowedRoles={["student", "admin"]}>
                 <ScheduleFormPage />
+              </PrivateRoute>
+            }
+          />
+
+          {/* Skills Routes */}
+          <Route
+            path="/skills/list"
+            element={
+              <PrivateRoute allowedRoles={["student", "admin"]}>
+                <ListSkillPage />
+              </PrivateRoute>
+            }
+          />
+          <Route path="/skills/browse" element={<BrowseSkillsPage />} />
+          <Route path="/skills/:id" element={<SkillDetailsPage />} />
+          <Route
+            path="/skills/my-listings"
+            element={
+              <PrivateRoute allowedRoles={["student", "admin"]}>
+                <MySkillsPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/skills/my-bookings"
+            element={
+              <PrivateRoute allowedRoles={["student", "admin"]}>
+                <MyBookingsPage />
               </PrivateRoute>
             }
           />

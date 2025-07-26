@@ -88,19 +88,60 @@ const NavBar = () => {
               </Link>
             </motion.div>
             
+            <motion.div whileHover={{ scale: 1.05 }}>
+              <Link 
+                to="/skills/browse" 
+                className={`text-sm font-medium transition-colors duration-200 ${
+                  isActive('/skills/browse') 
+                    ? 'text-white bg-white/20 px-3 py-2 rounded-lg' 
+                    : 'text-white/80 hover:text-white'
+                }`}
+              >
+                Browse Skills
+              </Link>
+            </motion.div>
+            
             {user?.role === 'student' && (
-              <motion.div whileHover={{ scale: 1.05 }}>
-                <Link 
-                  to="/complaints/my" 
-                  className={`text-sm font-medium transition-colors duration-200 ${
-                    isActive('/complaints') 
-                      ? 'text-white bg-white/20 px-3 py-2 rounded-lg' 
-                      : 'text-white/80 hover:text-white'
-                  }`}
-                >
-                  Complaints
-                </Link>
-              </motion.div>
+              <>
+                <motion.div whileHover={{ scale: 1.05 }}>
+                  <Link 
+                    to="/skills/my-listings" 
+                    className={`text-sm font-medium transition-colors duration-200 ${
+                      isActive('/skills/my-listings') 
+                        ? 'text-white bg-white/20 px-3 py-2 rounded-lg' 
+                        : 'text-white/80 hover:text-white'
+                    }`}
+                  >
+                    My Skills
+                  </Link>
+                </motion.div>
+                
+                <motion.div whileHover={{ scale: 1.05 }}>
+                  <Link 
+                    to="/skills/my-bookings" 
+                    className={`text-sm font-medium transition-colors duration-200 ${
+                      isActive('/skills/my-bookings') 
+                        ? 'text-white bg-white/20 px-3 py-2 rounded-lg' 
+                        : 'text-white/80 hover:text-white'
+                    }`}
+                  >
+                    My Sessions
+                  </Link>
+                </motion.div>
+                
+                <motion.div whileHover={{ scale: 1.05 }}>
+                  <Link 
+                    to="/complaints/my" 
+                    className={`text-sm font-medium transition-colors duration-200 ${
+                      isActive('/complaints') 
+                        ? 'text-white bg-white/20 px-3 py-2 rounded-lg' 
+                        : 'text-white/80 hover:text-white'
+                    }`}
+                  >
+                    Complaints
+                  </Link>
+                </motion.div>
+              </>
             )}
             
             {user?.role === 'admin' && (

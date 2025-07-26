@@ -39,6 +39,38 @@ const DashboardPage = () => {
       category: 'Academic'
     },
     {
+      title: 'Browse Skills',
+      description: 'Discover skills offered by other students',
+      icon: '🎯',
+      link: '/skills/browse',
+      color: 'from-emerald-500 to-emerald-600',
+      category: 'Skill Sharing'
+    },
+    {
+      title: 'List My Skill',
+      description: 'Share your knowledge with other students',
+      icon: '💡',
+      link: '/skills/list',
+      color: 'from-teal-500 to-teal-600',
+      category: 'Skill Sharing'
+    },
+    {
+      title: 'My Skill Listings',
+      description: 'Manage your offered skills and track bookings',
+      icon: '📋',
+      link: '/skills/my-listings',
+      color: 'from-indigo-500 to-indigo-600',
+      category: 'Skill Sharing'
+    },
+    {
+      title: 'My Sessions',
+      description: 'View and manage your skill sharing sessions',
+      icon: '🤝',
+      link: '/skills/my-bookings',
+      color: 'from-violet-500 to-violet-600',
+      category: 'Skill Sharing'
+    },
+    {
       title: 'Report Lost/Found Item',
       description: 'Report items you lost or found on campus',
       icon: '🔍',
