@@ -9,6 +9,7 @@ import lostFoundRoutes from './routes/lostFoundRoutes.js';
 import scheduleRoutes from './routes/scheduleRoutes.js';
 import skillRoutes from './routes/skillRoutes.js';
 import bookingRoutes from './routes/bookingRoutes.js';
+import feedItemRoutes from './routes/feedItemRoutes.js';
 import errorHandler from './middlewares/errorHandler.js';
 import path from 'path';
 
@@ -31,6 +32,7 @@ app.use('/api/lostfound', lostFoundRoutes);
 app.use('/api/schedule', scheduleRoutes);
 app.use('/api/skills', skillRoutes);
 app.use('/api/bookings', bookingRoutes);
+app.use('/api/feed', feedItemRoutes);
 
 app.use(errorHandler);
 
