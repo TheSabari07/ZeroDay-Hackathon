@@ -24,7 +24,7 @@ async function submitVote(pollId, selectedOption) {
 // Check if user has voted on a specific poll
 async function checkUserVote(pollId) {
   const config = await getConfig();
-  const response = await axios.get(`${API_URL}/${pollId}/check`, config);
+  const response = await axios.get(`${API_URL}/check/${pollId}`, config);
   return response.data;
 }
 

@@ -11,6 +11,6 @@ const router = express.Router();
 router.post('/:id', protect, submitVote);
 
 // Student and Admin: check if user has voted on a specific poll
-router.get('/:id/check', protect, checkUserVote);
+router.get('/check/:id', protect, checkUserVote);
 
 export default router; 
