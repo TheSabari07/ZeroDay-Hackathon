@@ -1,12 +1,11 @@
-import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
+import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import authRoutes from './routes/authRoutes.js';
 import announcementRoutes from './routes/announcementRoutes.js';
 import complaintRoutes from './routes/complaintRoutes.js';
 import lostFoundRoutes from './routes/lostFoundRoutes.js';
-import scheduleRoutes from './routes/scheduleRoutes.js';
 import skillRoutes from './routes/skillRoutes.js';
 import bookingRoutes from './routes/bookingRoutes.js';
 import feedItemRoutes from './routes/feedItemRoutes.js';
@@ -16,33 +15,53 @@ import errorHandler from './middlewares/errorHandler.js';
 import path from 'path';
 
 dotenv.config();
-connectDB();
 
 const app = express();
 
+// Connect to MongoDB
+connectDB();
+
+// Middleware
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cors());
+app.use(express.urlencoded({ extended: true }));
 
-// Serve static files from uploads before routes
-app.use('/uploads', express.static(path.join(process.cwd(), 'server', 'uploads')));
+// CORS configuration
+app.use(cors({
+  origin: process.env.NODE_ENV === 'production' 
+    ? ['https://your-netlify-app.netlify.app', 'https://your-custom-domain.com'] 
+    : ['http://localhost:5173', 'http://localhost:3000'],
+  credentials: true
+}));
 
+// Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/announcements', announcementRoutes);
 app.use('/api/complaints', complaintRoutes);
 app.use('/api/lostfound', lostFoundRoutes);
-app.use('/api/schedule', scheduleRoutes);
 app.use('/api/skills', skillRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/feed', feedItemRoutes);
 app.use('/api/polls', pollRoutes);
 app.use('/api/votes', voteRoutes);
 
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'OK', message: 'Server is running' });
+});
+
+// Serve static files in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(process.cwd(), 'public')));
+  
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(process.cwd(), 'public', 'index.html'));
+  });
+}
+
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
-const ENV = process.env.NODE_ENV || 'development';
 
 app.listen(PORT, () => {
-  console.log(`Server running in ${ENV} mode on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
