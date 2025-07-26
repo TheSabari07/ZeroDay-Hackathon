@@ -11,6 +11,7 @@ import bookingRoutes from './routes/bookingRoutes.js';
 import feedItemRoutes from './routes/feedItemRoutes.js';
 import pollRoutes from './routes/pollRoutes.js';
 import voteRoutes from './routes/voteRoutes.js';
+import scheduleRoutes from './routes/scheduleRoutes.js';
 import errorHandler from './middlewares/errorHandler.js';
 import path from 'path';
 
@@ -43,6 +44,7 @@ app.use('/api/bookings', bookingRoutes);
 app.use('/api/feed', feedItemRoutes);
 app.use('/api/polls', pollRoutes);
 app.use('/api/votes', voteRoutes);
+app.use('/api/schedule', scheduleRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
