@@ -94,6 +94,14 @@ const DashboardPage = () => {
       color: 'from-cyan-500 to-cyan-600',
       category: 'Campus Life'
     },
+    {
+      title: 'Polls & Feedback',
+      description: 'Vote on campus polls and view results',
+      icon: '🗳️',
+      link: '/polls',
+      color: 'from-rose-500 to-rose-600',
+      category: 'Feedback'
+    },
   ];
 
   const studentActions = [
@@ -138,6 +146,14 @@ const DashboardPage = () => {
       icon: '🛠️',
       link: '/admin/complaints',
       color: 'from-pink-500 to-pink-600',
+      category: 'Administration'
+    },
+    {
+      title: 'Manage Polls',
+      description: 'Create and manage campus polls',
+      icon: '📊',
+      link: '/admin/polls',
+      color: 'from-amber-500 to-amber-600',
       category: 'Administration'
     },
   ];

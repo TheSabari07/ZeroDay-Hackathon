@@ -25,6 +25,8 @@ import MySkillsPage from './pages/Skills/MySkillsPage';
 import MyBookingsPage from './pages/Skills/MyBookingsPage';
 import FeedManagementPage from './pages/Admin/FeedManagementPage';
 import FeedPage from './pages/Feed/FeedPage';
+import PollsPage from './pages/Polls/PollsPage';
+import PollManagementPage from './pages/Admin/PollManagementPage';
 
 const PrivateRoute = ({ children, allowedRoles }) => {
   const { user, loading } = useAuth();
@@ -204,6 +206,24 @@ function AppRoutes() {
             }
           />
           <Route path="/skills/:id" element={<SkillDetailsPage />} />
+
+          {/* Poll Routes */}
+          <Route
+            path="/polls"
+            element={
+              <PrivateRoute allowedRoles={["student", "admin"]}>
+                <PollsPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/admin/polls"
+            element={
+              <PrivateRoute allowedRoles={["admin"]}>
+                <PollManagementPage />
+              </PrivateRoute>
+            }
+          />
 
           {/* Default redirect from / to /dashboard */}
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
