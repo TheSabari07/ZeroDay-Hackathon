@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import announcementService from '../../services/announcementService';
+import { motion } from 'framer-motion';
 
 const categories = [
   'All',
@@ -18,6 +19,50 @@ const AnnouncementsPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [sortBy, setSortBy] = useState('date_desc');
 
+  // Fake announcements data for demo
+  const fakeAnnouncements = [
+    {
+      _id: '1',
+      title: 'Campus WiFi Maintenance Scheduled',
+      content: 'The campus WiFi network will undergo maintenance on Saturday, March 15th from 2:00 AM to 6:00 AM. During this time, internet connectivity may be intermittent. We apologize for any inconvenience.',
+      category: 'General',
+      date: '2024-03-10',
+      author: { email: 'admin@campus.edu' }
+    },
+    {
+      _id: '2',
+      title: 'Spring Semester Exam Schedule Released',
+      content: 'The complete exam schedule for Spring Semester 2024 has been published. Please check your student portal for your individual exam timetable. All exams will be held in the main auditorium.',
+      category: 'Exams',
+      date: '2024-03-08',
+      author: { email: 'academics@campus.edu' }
+    },
+    {
+      _id: '3',
+      title: 'Annual Tech Fest Registration Open',
+      content: 'Registration for the Annual Tech Fest 2024 is now open! This year\'s theme is "Innovation for Tomorrow". Students can register for coding competitions, hackathons, and tech workshops. Early bird registration closes on March 20th.',
+      category: 'Events',
+      date: '2024-03-05',
+      author: { email: 'events@campus.edu' }
+    },
+    {
+      _id: '4',
+      title: 'Library Extended Hours for Finals',
+      content: 'The campus library will have extended hours during the final examination period. Starting from March 18th, the library will be open from 7:00 AM to 2:00 AM daily. Study rooms are available for group sessions.',
+      category: 'Academics',
+      date: '2024-03-03',
+      author: { email: 'library@campus.edu' }
+    },
+    {
+      _id: '5',
+      title: 'Campus Cafeteria Menu Update',
+      content: 'The campus cafeteria has updated its menu with new healthy options and international cuisine. New items include vegetarian bowls, Mediterranean salads, and Asian fusion dishes. Student meal plans remain unchanged.',
+      category: 'General',
+      date: '2024-03-01',
+      author: { email: 'cafeteria@campus.edu' }
+    }
+  ];
+
   useEffect(() => {
     fetchAnnouncements();
     // eslint-disable-next-line
@@ -35,7 +80,55 @@ const AnnouncementsPage = () => {
         params.sortBy = sortBy;
       }
       const data = await announcementService.getAnnouncements(params);
-      setAnnouncements(data);
+      
+      // If no announcements from API, use fake data for demo
+      if (data.length === 0) {
+        const fakeAnnouncements = [
+          {
+            _id: '1',
+            title: 'Campus WiFi Maintenance Scheduled',
+            content: 'The campus WiFi network will undergo maintenance on Saturday, March 15th from 2:00 AM to 6:00 AM. During this time, internet connectivity may be intermittent. We apologize for any inconvenience.',
+            category: 'General',
+            date: '2024-03-10',
+            author: { email: 'admin@campus.edu' }
+          },
+          {
+            _id: '2',
+            title: 'Spring Semester Exam Schedule Released',
+            content: 'The complete exam schedule for Spring Semester 2024 has been published. Please check your student portal for your individual exam timetable. All exams will be held in the main auditorium.',
+            category: 'Exams',
+            date: '2024-03-08',
+            author: { email: 'academics@campus.edu' }
+          },
+          {
+            _id: '3',
+            title: 'Annual Tech Fest Registration Open',
+            content: 'Registration for the Annual Tech Fest 2024 is now open! This year\'s theme is "Innovation for Tomorrow". Students can register for coding competitions, hackathons, and tech workshops. Early bird registration closes on March 20th.',
+            category: 'Events',
+            date: '2024-03-05',
+            author: { email: 'events@campus.edu' }
+          },
+          {
+            _id: '4',
+            title: 'Library Extended Hours for Finals',
+            content: 'The campus library will have extended hours during the final examination period. Starting from March 18th, the library will be open from 7:00 AM to 2:00 AM daily. Study rooms are available for group sessions.',
+            category: 'Academics',
+            date: '2024-03-03',
+            author: { email: 'library@campus.edu' }
+          },
+          {
+            _id: '5',
+            title: 'Campus Cafeteria Menu Update',
+            content: 'The campus cafeteria has updated its menu with new healthy options and international cuisine. New items include vegetarian bowls, Mediterranean salads, and Asian fusion dishes. Student meal plans remain unchanged.',
+            category: 'General',
+            date: '2024-03-01',
+            author: { email: 'cafeteria@campus.edu' }
+          }
+        ];
+        setAnnouncements(fakeAnnouncements);
+      } else {
+        setAnnouncements(data);
+      }
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to fetch announcements');
     }
@@ -94,16 +187,76 @@ const AnnouncementsPage = () => {
         ) : announcements.length === 0 ? (
           <div className="glass-card text-center text-gray-500 py-8">No announcements found.</div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {announcements.map(a => (
-              <div key={a._id} className="bg-white shadow-lg rounded-lg p-6 flex flex-col hover:shadow-xl transition-shadow duration-300">
-                <h3 className="text-xl font-bold mb-2 text-gray-800">{a.title}</h3>
-                <div className="mb-2 text-sm text-gray-500">{a.category} &bull; {new Date(a.date).toLocaleDateString()}</div>
-                <div className="mb-4 text-gray-700 whitespace-pre-line flex-1">{a.content}</div>
-                <div className="mt-auto text-xs text-gray-400">By: {a.author?.email || 'N/A'}</div>
-              </div>
-            ))}
-          </div>
+          <>
+            {/* Results Count */}
+            <div className="mb-6">
+              <p className="text-white text-lg">
+                {announcements.length} announcement{announcements.length !== 1 ? 's' : ''} found
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+              {announcements.map((a, index) => (
+                <motion.div
+                  key={a._id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={{ scale: 1.02 }}
+                  className="feature-card"
+                >
+                  {/* Category Badge */}
+                  <div className="flex justify-between items-start mb-4">
+                    <span className="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-gradient-to-r from-blue-500 to-blue-600 text-white">
+                      {a.category}
+                    </span>
+                    <span className="text-xs text-gray-500">
+                      {new Date(a.date).toLocaleDateString()}
+                    </span>
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-xl font-bold text-gray-800 mb-2 line-clamp-2">
+                    {a.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                    {a.content}
+                  </p>
+
+                  {/* Author Info */}
+                  <div className="mb-4">
+                    <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">Posted By</p>
+                    <p className="text-sm text-gray-700">{a.author?.email || 'Admin'}</p>
+                  </div>
+
+                  {/* Date Info */}
+                  <div className="mb-4">
+                    <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">Date</p>
+                    <p className="text-sm text-gray-700">{new Date(a.date).toLocaleDateString('en-US', { 
+                      year: 'numeric', 
+                      month: 'long', 
+                      day: 'numeric' 
+                    })}</p>
+                  </div>
+
+                  {/* Read More Button */}
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="w-full btn-primary"
+                    onClick={() => {
+                      // You can add a modal or expand functionality here
+                      alert(`Full announcement: ${a.content}`);
+                    }}
+                  >
+                    Read More
+                  </motion.button>
+                </motion.div>
+              ))}
+            </div>
+          </>
         )}
       </div>
     </div>

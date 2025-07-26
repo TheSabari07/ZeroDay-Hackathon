@@ -42,7 +42,65 @@ const FeedPage = () => {
         params.sortBy = sortBy;
       }
       const data = await feedItemService.getAllFeedItems(params);
-      setFeedItems(data);
+      
+      // If no feed items from API, use fake data for demo
+      if (data.length === 0) {
+        const fakeFeedItems = [
+          {
+            _id: '1',
+            title: 'Google Summer Internship Program 2024',
+            description: 'Applications are now open for Google\'s prestigious summer internship program. This is a great opportunity for computer science students to gain hands-on experience at one of the world\'s leading tech companies.',
+            type: 'Internship',
+            link: 'https://careers.google.com/internships',
+            relevantDate: '2024-04-15',
+            createdAt: '2024-03-10',
+            postedBy: { email: 'careers@google.com' }
+          },
+          {
+            _id: '2',
+            title: 'Microsoft Azure Hackathon 2024',
+            description: 'Join the Microsoft Azure Hackathon and build innovative cloud solutions. Winners will receive cash prizes, Azure credits, and potential internship opportunities. Teams of 2-4 students welcome.',
+            type: 'Hackathon',
+            link: 'https://azure.microsoft.com/hackathon',
+            relevantDate: '2024-03-25',
+            createdAt: '2024-03-08',
+            postedBy: { email: 'microsoft@campus.edu' }
+          },
+          {
+            _id: '3',
+            title: 'AI/ML Workshop Series',
+            description: 'Learn the fundamentals of Artificial Intelligence and Machine Learning in our comprehensive workshop series. No prior experience required. Sessions will cover Python, TensorFlow, and real-world applications.',
+            type: 'Workshop',
+            link: 'https://campus.edu/ai-workshop',
+            relevantDate: '2024-03-20',
+            createdAt: '2024-03-05',
+            postedBy: { email: 'workshops@campus.edu' }
+          },
+          {
+            _id: '4',
+            title: 'Tech Industry News: Latest Developments',
+            description: 'Stay updated with the latest developments in the tech industry. This week\'s highlights include new AI breakthroughs, startup funding rounds, and emerging technology trends that could impact your career.',
+            type: 'News',
+            link: 'https://technews.com/latest',
+            relevantDate: '2024-03-12',
+            createdAt: '2024-03-03',
+            postedBy: { email: 'news@campus.edu' }
+          },
+          {
+            _id: '5',
+            title: 'Merit Scholarship Applications Open',
+            description: 'Applications for the annual merit scholarship program are now open. This scholarship covers 50% of tuition fees for outstanding students. Deadline for applications is April 30th, 2024.',
+            type: 'Scholarship',
+            link: 'https://campus.edu/scholarships',
+            relevantDate: '2024-04-30',
+            createdAt: '2024-03-01',
+            postedBy: { email: 'financialaid@campus.edu' }
+          }
+        ];
+        setFeedItems(fakeFeedItems);
+      } else {
+        setFeedItems(data);
+      }
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to fetch feed items');
     }

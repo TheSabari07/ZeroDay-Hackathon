@@ -20,7 +20,66 @@ const PollsPage = () => {
     try {
       setLoading(true);
       const data = await pollService.getAllPolls();
-      setPolls(data);
+      
+      // If no polls from API, use fake data for demo
+      if (data.length === 0) {
+        const fakePolls = [
+          {
+            _id: '1',
+            question: 'Should the campus implement a 24/7 study space?',
+            options: ['Yes, definitely needed', 'No, current hours are sufficient', 'Maybe, with limited access'],
+            isActive: true,
+            createdBy: { name: 'Admin' },
+            results: { 'Yes, definitely needed': 45, 'No, current hours are sufficient': 12, 'Maybe, with limited access': 23 },
+            hasVoted: false,
+            createdAt: '2024-03-10'
+          },
+          {
+            _id: '2',
+            question: 'Which new food option would you prefer in the cafeteria?',
+            options: ['Vegetarian/Vegan options', 'International cuisine', 'Healthy meal prep', 'Fast food chains'],
+            isActive: true,
+            createdBy: { name: 'Admin' },
+            results: { 'Vegetarian/Vegan options': 28, 'International cuisine': 35, 'Healthy meal prep': 18, 'Fast food chains': 9 },
+            hasVoted: false,
+            createdAt: '2024-03-08'
+          },
+          {
+            _id: '3',
+            question: 'How satisfied are you with the campus WiFi speed?',
+            options: ['Very satisfied', 'Satisfied', 'Neutral', 'Dissatisfied', 'Very dissatisfied'],
+            isActive: false,
+            createdBy: { name: 'Admin' },
+            results: { 'Very satisfied': 15, 'Satisfied': 42, 'Neutral': 23, 'Dissatisfied': 12, 'Very dissatisfied': 8 },
+            hasVoted: true,
+            selectedOption: 'Satisfied',
+            createdAt: '2024-03-05'
+          },
+          {
+            _id: '4',
+            question: 'What type of campus events would you like to see more of?',
+            options: ['Academic workshops', 'Social events', 'Career fairs', 'Sports tournaments', 'Cultural festivals'],
+            isActive: true,
+            createdBy: { name: 'Admin' },
+            results: { 'Academic workshops': 31, 'Social events': 25, 'Career fairs': 28, 'Sports tournaments': 12, 'Cultural festivals': 14 },
+            hasVoted: false,
+            createdAt: '2024-03-03'
+          },
+          {
+            _id: '5',
+            question: 'Should the library extend its operating hours during exam periods?',
+            options: ['Yes, 24/7 access', 'Yes, until 2 AM', 'Current hours are fine', 'No, not necessary'],
+            isActive: true,
+            createdBy: { name: 'Admin' },
+            results: { 'Yes, 24/7 access': 38, 'Yes, until 2 AM': 29, 'Current hours are fine': 18, 'No, not necessary': 5 },
+            hasVoted: false,
+            createdAt: '2024-03-01'
+          }
+        ];
+        setPolls(fakePolls);
+      } else {
+        setPolls(data);
+      }
       setError('');
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to fetch polls');

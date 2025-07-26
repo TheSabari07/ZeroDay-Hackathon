@@ -43,7 +43,70 @@ const BrowseSkillsPage = () => {
       if (searchTerm) params.search = searchTerm;
 
       const data = await skillService.getAllSkills(params);
-      setSkills(data);
+      
+      // If no skills from API, use fake data for demo
+      if (data.length === 0) {
+        const fakeSkills = [
+          {
+            _id: '1',
+            title: 'Python Programming for Beginners',
+            description: 'Learn Python from scratch! Perfect for beginners with no programming experience. We\'ll cover basics, data structures, and build simple projects together.',
+            category: 'Coding',
+            level: 'Beginner',
+            price: 15,
+            tutor: { name: 'Alex Chen', email: 'alex.chen@student.edu' },
+            rating: 4.8,
+            totalBookings: 12
+          },
+          {
+            _id: '2',
+            title: 'Web Development with React',
+            description: 'Master modern web development using React.js. Learn to build interactive, responsive web applications with the latest React features and best practices.',
+            category: 'Coding',
+            level: 'Intermediate',
+            price: 25,
+            tutor: { name: 'Sarah Johnson', email: 'sarah.j@student.edu' },
+            rating: 4.9,
+            totalBookings: 8
+          },
+          {
+            _id: '3',
+            title: 'Spanish Conversation Practice',
+            description: 'Improve your Spanish speaking skills through interactive conversations. Perfect for students who want to practice speaking and build confidence in Spanish.',
+            category: 'Languages',
+            level: 'Intermediate',
+            price: 20,
+            tutor: { name: 'Maria Rodriguez', email: 'maria.r@student.edu' },
+            rating: 4.7,
+            totalBookings: 15
+          },
+          {
+            _id: '4',
+            title: 'Guitar Lessons for Beginners',
+            description: 'Learn to play guitar from scratch! We\'ll start with basic chords, strumming patterns, and work our way up to playing your favorite songs.',
+            category: 'Music',
+            level: 'Beginner',
+            price: 18,
+            tutor: { name: 'Mike Thompson', email: 'mike.t@student.edu' },
+            rating: 4.6,
+            totalBookings: 10
+          },
+          {
+            _id: '5',
+            title: 'Advanced Calculus Tutoring',
+            description: 'Get help with advanced calculus concepts including derivatives, integrals, and multivariable calculus. Perfect for students struggling with complex mathematical concepts.',
+            category: 'Academics',
+            level: 'Advanced',
+            price: 30,
+            tutor: { name: 'Dr. Emily Watson', email: 'emily.w@student.edu' },
+            rating: 4.9,
+            totalBookings: 6
+          }
+        ];
+        setSkills(fakeSkills);
+      } else {
+        setSkills(data);
+      }
     } catch (err) {
       setError(err.response?.data?.message || err.message || 'Failed to fetch skills');
     } finally {

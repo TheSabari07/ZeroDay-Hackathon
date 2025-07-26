@@ -42,7 +42,65 @@ const BrowseItemsPage = () => {
         if (filterStatus !== "All") params.status = filterStatus;
         if (sortBy) params.sortBy = sortBy;
         const data = await lostFoundService.getAllItems(params);
-        setItems(data);
+        
+        // If no items from API, use fake data for demo
+        if (data.length === 0) {
+          const fakeItems = [
+            {
+              _id: '1',
+              title: 'Apple iPhone 13',
+              description: 'Lost my iPhone 13 near the library. It has a black case and a cracked screen protector. Please contact if found.',
+              category: 'Electronics',
+              type: 'Lost',
+              status: 'Pending',
+              location: 'Main Library',
+              createdAt: '2024-03-10'
+            },
+            {
+              _id: '2',
+              title: 'Blue Nike Backpack',
+              description: 'Found a blue Nike backpack in the cafeteria. It contains textbooks and a laptop. Please claim with proper identification.',
+              category: 'Clothing',
+              type: 'Found',
+              status: 'Pending',
+              location: 'Cafeteria',
+              createdAt: '2024-03-09'
+            },
+            {
+              _id: '3',
+              title: 'Silver Car Keys',
+              description: 'Lost my car keys with a silver keychain near the parking lot. Has a small USB drive attached.',
+              category: 'Keys',
+              type: 'Lost',
+              status: 'Pending',
+              location: 'Parking Lot A',
+              createdAt: '2024-03-08'
+            },
+            {
+              _id: '4',
+              title: 'Calculus Textbook',
+              description: 'Found a calculus textbook in the math building. Name written inside: "John Smith". Please contact to claim.',
+              category: 'Books',
+              type: 'Found',
+              status: 'Claimed',
+              location: 'Math Building',
+              createdAt: '2024-03-07'
+            },
+            {
+              _id: '5',
+              title: 'Gold Necklace',
+              description: 'Lost my gold necklace with a small pendant near the fountain. It has sentimental value. Reward offered.',
+              category: 'Jewelry',
+              type: 'Lost',
+              status: 'Pending',
+              location: 'Campus Fountain',
+              createdAt: '2024-03-06'
+            }
+          ];
+          setItems(fakeItems);
+        } else {
+          setItems(data);
+        }
       } catch (err) {
         setError(
           err?.response?.data?.message || "Failed to fetch items. Please try again."
