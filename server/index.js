@@ -55,7 +55,7 @@ app.get('/api/health', (req, res) => {
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(process.cwd(), 'public')));
   
-  app.get('*', (req, res) => {
+  app.get('/:path(*)', (req, res) => {
     res.sendFile(path.join(process.cwd(), 'public', 'index.html'));
   });
 }
