@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import Vote from '../models/Vote.js';
 import Poll from '../models/Poll.js';
+import mongoose from 'mongoose';
 
 // Submit a vote on a poll
 export const submitVote = asyncHandler(async (req, res) => {
@@ -10,6 +11,11 @@ export const submitVote = asyncHandler(async (req, res) => {
   if (!selectedOption) {
     res.status(400);
     throw new Error('Selected option is required');
+  }
+  
+  if (!mongoose.Types.ObjectId.isValid(pollId)) {
+    res.status(400);
+    throw new Error('Invalid poll ID');
   }
   
   // Check if poll exists and is active
@@ -54,6 +60,11 @@ export const submitVote = asyncHandler(async (req, res) => {
 export const checkUserVote = asyncHandler(async (req, res) => {
   const pollId = req.params.id;
   
+  if (!mongoose.Types.ObjectId.isValid(pollId)) {
+    res.status(400);
+    throw new Error('Invalid poll ID');
+  }
+
   // Check if poll exists
   const poll = await Poll.findById(pollId);
   if (!poll) {

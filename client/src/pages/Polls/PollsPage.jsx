@@ -3,6 +3,10 @@ import { motion } from 'framer-motion';
 import pollService from '../../services/pollService';
 import voteService from '../../services/voteService';
 
+function isValidObjectId(id) {
+  return typeof id === 'string' && id.length === 24 && /^[a-fA-F0-9]+$/.test(id);
+}
+
 const PollsPage = () => {
   const [polls, setPolls] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -93,6 +97,10 @@ const PollsPage = () => {
     
     if (!selectedOption) {
       setError('Please select an option to vote');
+      return;
+    }
+    if (!isValidObjectId(pollId)) {
+      setError('Voting is only available for real polls.');
       return;
     }
 
