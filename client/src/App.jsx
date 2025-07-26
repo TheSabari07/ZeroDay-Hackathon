@@ -23,7 +23,14 @@ const PrivateRoute = ({ children, allowedRoles }) => {
   const { user, loading } = useAuth();
 
   if (loading) {
-    return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-blue-400 to-purple-400 flex items-center justify-center">
+        <div className="glass-card p-8 text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
+          <p className="text-white font-medium">Loading...</p>
+        </div>
+      </div>
+    );
   }
 
   if (!user) {
@@ -41,124 +48,126 @@ const PrivateRoute = ({ children, allowedRoles }) => {
 function AppRoutes() {
   const { user } = useAuth();
   return (
-    <>
+    <div className="min-h-screen">
       {user && <NavBar />}
-      <Routes>
-        {/* Public Routes */}
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        {/* Lost & Found Public Routes */}
-        <Route path="/lostfound/browse" element={<BrowseItemsPage />} />
-        <Route path="/lostfound/:id" element={<ItemDetailsPage />} />
-        {/* Protected Lost & Found Route */}
-        <Route
-          path="/lostfound/report"
-          element={
-            <PrivateRoute allowedRoles={["student", "admin"]}>
-              <ReportItemPage />
-            </PrivateRoute>
-          }
-        />
+      <main className={user ? 'pt-0' : 'pt-0'}>
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          {/* Lost & Found Public Routes */}
+          <Route path="/lostfound/browse" element={<BrowseItemsPage />} />
+          <Route path="/lostfound/:id" element={<ItemDetailsPage />} />
+          {/* Protected Lost & Found Route */}
+          <Route
+            path="/lostfound/report"
+            element={
+              <PrivateRoute allowedRoles={["student", "admin"]}>
+                <ReportItemPage />
+              </PrivateRoute>
+            }
+          />
 
-        {/* Protected Routes */}
-        <Route
-          path="/dashboard"
-          element={
-            <PrivateRoute allowedRoles={["student", "admin"]}>
-              <DashboardPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/tasks"
-          element={
-            <PrivateRoute allowedRoles={["student", "admin"]}>
-              <TaskManagementPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/admin"
-          element={
-            <PrivateRoute allowedRoles={["admin"]}>
-              <AdminDashboardPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/announcements"
-          element={
-            <PrivateRoute allowedRoles={["student", "admin"]}>
-              <AnnouncementsPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/admin/announcements"
-          element={
-            <PrivateRoute allowedRoles={["admin"]}>
-              <AnnouncementManagementPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/complaints/register"
-          element={
-            <PrivateRoute allowedRoles={["student", "admin"]}>
-              <ComplaintRegistrationPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/complaints/my"
-          element={
-            <PrivateRoute allowedRoles={["student", "admin"]}>
-              <MyComplaintsPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/admin/complaints"
-          element={
-            <PrivateRoute allowedRoles={["admin"]}>
-              <ComplaintManagementPage />
-            </PrivateRoute>
-          }
-        />
+          {/* Protected Routes */}
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateRoute allowedRoles={["student", "admin"]}>
+                <DashboardPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/tasks"
+            element={
+              <PrivateRoute allowedRoles={["student", "admin"]}>
+                <TaskManagementPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <PrivateRoute allowedRoles={["admin"]}>
+                <AdminDashboardPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/announcements"
+            element={
+              <PrivateRoute allowedRoles={["student", "admin"]}>
+                <AnnouncementsPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/admin/announcements"
+            element={
+              <PrivateRoute allowedRoles={["admin"]}>
+                <AnnouncementManagementPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/complaints/register"
+            element={
+              <PrivateRoute allowedRoles={["student", "admin"]}>
+                <ComplaintRegistrationPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/complaints/my"
+            element={
+              <PrivateRoute allowedRoles={["student", "admin"]}>
+                <MyComplaintsPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/admin/complaints"
+            element={
+              <PrivateRoute allowedRoles={["admin"]}>
+                <ComplaintManagementPage />
+              </PrivateRoute>
+            }
+          />
 
-        {/* Timetable Routes */}
-        <Route
-          path="/timetable"
-          element={
-            <PrivateRoute allowedRoles={["student", "admin"]}>
-              <TimetablePage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/timetable/add"
-          element={
-            <PrivateRoute allowedRoles={["student", "admin"]}>
-              <ScheduleFormPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/timetable/edit/:id"
-          element={
-            <PrivateRoute allowedRoles={["student", "admin"]}>
-              <ScheduleFormPage />
-            </PrivateRoute>
-          }
-        />
+          {/* Timetable Routes */}
+          <Route
+            path="/timetable"
+            element={
+              <PrivateRoute allowedRoles={["student", "admin"]}>
+                <TimetablePage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/timetable/add"
+            element={
+              <PrivateRoute allowedRoles={["student", "admin"]}>
+                <ScheduleFormPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/timetable/edit/:id"
+            element={
+              <PrivateRoute allowedRoles={["student", "admin"]}>
+                <ScheduleFormPage />
+              </PrivateRoute>
+            }
+          />
 
-        {/* Default redirect from / to /dashboard */}
-        <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          {/* Default redirect from / to /dashboard */}
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
-        {/* Catch-all route */}
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </>
+          {/* Catch-all route */}
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </main>
+    </div>
   );
 }
 
