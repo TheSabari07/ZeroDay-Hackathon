@@ -97,10 +97,12 @@ const BrowseSkillsPage = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-8"
         >
-          <h1 className="text-4xl font-bold text-white mb-2">Browse Skills</h1>
-          <p className="text-xl text-white/90">
-            Discover skills offered by your fellow students
-          </p>
+          <div className="glass-card p-8 mb-6">
+            <h1 className="text-5xl font-bold text-gradient mb-4">Browse Skills</h1>
+            <p className="text-xl text-white/90 font-medium">
+              Discover and learn from your fellow students
+            </p>
+          </div>
         </motion.div>
 
         {/* Filters and Search Section */}

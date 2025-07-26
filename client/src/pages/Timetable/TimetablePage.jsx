@@ -140,12 +140,14 @@ const TimetablePage = () => {
           className="text-center mb-8"
           variants={itemVariants}
         >
-          <h1 className="text-5xl font-bold text-white mb-2">
-            My Timetable
-          </h1>
-          <p className="text-xl text-white/90 font-medium">
-            Manage your class schedule and academic activities
-          </p>
+          <div className="glass-card p-8 mb-6">
+            <h1 className="text-5xl font-bold text-gradient mb-4">
+              My Timetable
+            </h1>
+            <p className="text-xl text-white/90 font-medium">
+              Manage your class schedule and academic activities
+            </p>
+          </div>
         </motion.div>
 
         {/* Stats Cards */}

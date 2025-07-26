@@ -135,10 +135,12 @@ const MySkillsPage = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-8"
         >
-          <h1 className="text-4xl font-bold text-white mb-2">My Skills</h1>
-          <p className="text-xl text-white/90">
-            Manage your skill listings and track bookings
-          </p>
+          <div className="glass-card p-8 mb-6">
+            <h1 className="text-5xl font-bold text-gradient mb-4">My Skills</h1>
+            <p className="text-xl text-white/90 font-medium">
+              Manage your skill listings and track bookings
+            </p>
+          </div>
         </motion.div>
 
         {/* Action Buttons */}

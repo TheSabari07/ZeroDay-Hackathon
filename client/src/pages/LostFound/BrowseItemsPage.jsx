@@ -98,10 +98,12 @@ const BrowseItemsPage = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-8"
         >
-          <h1 className="text-4xl font-bold text-white mb-2">Lost & Found Items</h1>
-          <p className="text-xl text-white/90">
-            Browse through lost and found items on campus
-          </p>
+          <div className="glass-card p-8 mb-6">
+            <h1 className="text-5xl font-bold text-gradient mb-4">Lost & Found Items</h1>
+            <p className="text-xl text-white/90 font-medium">
+              Browse through lost and found items on campus
+            </p>
+          </div>
         </motion.div>
 
         {/* Filter & Sort Controls */}

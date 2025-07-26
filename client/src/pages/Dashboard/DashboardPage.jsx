@@ -189,12 +189,14 @@ const DashboardPage = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-8"
         >
-          <h1 className="text-5xl font-bold text-gradient mb-2">
-            Welcome back, {user?.name || 'User'}!
-          </h1>
-          <p className="text-xl text-white/90 font-medium">
-            Here's what's happening on campus today
-          </p>
+          <div className="glass-card p-8 mb-6">
+            <h1 className="text-5xl font-bold text-gradient mb-4">
+              Welcome back, {user?.name || 'User'}!
+            </h1>
+            <p className="text-xl text-white/90 font-medium">
+              Here's what's happening on campus today
+            </p>
+          </div>
         </motion.div>
 
         {/* Stats Cards */}
@@ -202,7 +204,7 @@ const DashboardPage = () => {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"
+          className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-8"
         >
           {stats.map((stat, index) => (
             <motion.div
@@ -210,12 +212,12 @@ const DashboardPage = () => {
               variants={itemVariants}
               className="stats-card"
             >
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600">{stat.title}</p>
-                  <p className="text-2xl font-bold text-gray-800">{stat.value}</p>
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
+                <div className="flex-1">
+                  <p className="text-xs sm:text-sm font-medium text-gray-600 truncate">{stat.title}</p>
+                  <p className="text-xl sm:text-2xl font-bold text-gray-800">{stat.value}</p>
                 </div>
-                <div className={`w-12 h-12 rounded-lg bg-gradient-to-r ${stat.color} flex items-center justify-center text-2xl`}>
+                <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-r ${stat.color} flex items-center justify-center text-lg sm:text-2xl flex-shrink-0`}>
                   {stat.icon}
                 </div>
               </div>
@@ -230,8 +232,8 @@ const DashboardPage = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mb-8"
         >
-          <h2 className="text-3xl font-bold text-white mb-6">Quick Actions</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4 sm:mb-6">Quick Actions</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {quickActions.map((action, index) => (
               <motion.div
                 key={index}
@@ -242,13 +244,13 @@ const DashboardPage = () => {
                 className="feature-card"
               >
                 <Link to={action.link} className="block">
-                  <div className="flex items-start space-x-4">
-                    <div className={`w-12 h-12 rounded-lg bg-gradient-to-r ${action.color} flex items-center justify-center text-2xl flex-shrink-0`}>
+                  <div className="flex items-start space-x-3 sm:space-x-4">
+                    <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-r ${action.color} flex items-center justify-center text-lg sm:text-2xl flex-shrink-0`}>
                       {action.icon}
                     </div>
-                    <div className="flex-1">
-                      <h3 className="text-lg font-semibold text-gray-800 mb-1">{action.title}</h3>
-                      <p className="text-sm text-gray-600 mb-2">{action.description}</p>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-1 truncate">{action.title}</h3>
+                      <p className="text-xs sm:text-sm text-gray-600 mb-2 line-clamp-2">{action.description}</p>
                       <span className="inline-block px-2 py-1 text-xs font-medium bg-gray-100 text-gray-600 rounded-full">
                         {action.category}
                       </span>
@@ -268,8 +270,8 @@ const DashboardPage = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="mb-8"
           >
-            <h2 className="text-3xl font-bold text-white mb-6">Student Services</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4 sm:mb-6">Student Services</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               {studentActions.map((action, index) => (
                 <motion.div
                   key={index}
@@ -280,13 +282,13 @@ const DashboardPage = () => {
                   className="feature-card"
                 >
                   <Link to={action.link} className="block">
-                    <div className="flex items-start space-x-4">
-                      <div className={`w-12 h-12 rounded-lg bg-gradient-to-r ${action.color} flex items-center justify-center text-2xl flex-shrink-0`}>
+                    <div className="flex items-start space-x-3 sm:space-x-4">
+                      <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-r ${action.color} flex items-center justify-center text-lg sm:text-2xl flex-shrink-0`}>
                         {action.icon}
                       </div>
-                      <div className="flex-1">
-                        <h3 className="text-lg font-semibold text-gray-800 mb-1">{action.title}</h3>
-                        <p className="text-sm text-gray-600 mb-2">{action.description}</p>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-1 truncate">{action.title}</h3>
+                        <p className="text-xs sm:text-sm text-gray-600 mb-2 line-clamp-2">{action.description}</p>
                         <span className="inline-block px-2 py-1 text-xs font-medium bg-gray-100 text-gray-600 rounded-full">
                           {action.category}
                         </span>
@@ -306,8 +308,8 @@ const DashboardPage = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="mb-8"
           >
-            <h2 className="text-3xl font-bold text-white mb-6">Administrative Tools</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4 sm:mb-6">Administrative Tools</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               {adminActions.map((action, index) => (
                 <motion.div
                   key={index}
@@ -318,13 +320,13 @@ const DashboardPage = () => {
                   className="feature-card"
                 >
                   <Link to={action.link} className="block">
-                    <div className="flex items-start space-x-4">
-                      <div className={`w-12 h-12 rounded-lg bg-gradient-to-r ${action.color} flex items-center justify-center text-2xl flex-shrink-0`}>
+                    <div className="flex items-start space-x-3 sm:space-x-4">
+                      <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-r ${action.color} flex items-center justify-center text-lg sm:text-2xl flex-shrink-0`}>
                         {action.icon}
                       </div>
-                      <div className="flex-1">
-                        <h3 className="text-lg font-semibold text-gray-800 mb-1">{action.title}</h3>
-                        <p className="text-sm text-gray-600 mb-2">{action.description}</p>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-1 truncate">{action.title}</h3>
+                        <p className="text-xs sm:text-sm text-gray-600 mb-2 line-clamp-2">{action.description}</p>
                         <span className="inline-block px-2 py-1 text-xs font-medium bg-gray-100 text-gray-600 rounded-full">
                           {action.category}
                         </span>

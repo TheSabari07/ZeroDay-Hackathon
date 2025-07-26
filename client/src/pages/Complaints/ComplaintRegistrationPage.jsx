@@ -48,10 +48,12 @@ const ComplaintRegistrationPage = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-8"
         >
-          <h1 className="text-4xl font-bold text-white mb-2">Raise a Complaint</h1>
-          <p className="text-xl text-white/90">
-            Report issues and help us improve campus facilities
-          </p>
+          <div className="glass-card p-8 mb-6">
+            <h1 className="text-5xl font-bold text-gradient mb-4">Raise a Complaint</h1>
+            <p className="text-xl text-white/90 font-medium">
+              Report issues and help us improve campus facilities
+            </p>
+          </div>
         </motion.div>
 
         {/* Form Card */}

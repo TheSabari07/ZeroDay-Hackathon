@@ -71,10 +71,12 @@ const PollsPage = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-8"
         >
-          <h1 className="text-4xl font-bold text-white mb-2">Campus Polls</h1>
-          <p className="text-xl text-white/90">
-            Vote on current polls and view results
-          </p>
+          <div className="glass-card p-8 mb-6">
+            <h1 className="text-5xl font-bold text-gradient mb-4">Campus Polls</h1>
+            <p className="text-xl text-white/90 font-medium">
+              Vote on current polls and view results
+            </p>
+          </div>
         </motion.div>
 
         {/* Error and Success Messages */}
